@@ -1,5 +1,5 @@
 #### JPRefreshTitleView
-仿《之乎日报、QQ》基于导航栏titleView的刷新控件，支持显示文字、刷新、拓展按钮。基于KVO实现
+仿《知乎日报》导航栏titleView的刷新控件，已封装，支持显示文字、刷新、拓展按钮。基于KVO实现
  ![image](https://github.com/XiFengLang/JPRefreshTitleView/raw/master/JPRefreshTitleViewGIF.gif)
  ![image](https://github.com/XiFengLang/JPRefreshTitleView/raw/master/JPRefreshTitleViewGIFTwo.gif)
 
