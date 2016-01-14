@@ -42,3 +42,16 @@
     [button addTarget:self action:@selector(selector) forControlEvents:(UIControlEvents)];
     self.refrshView.rightView = button;
 ```
+
+**错误写法**
+```Object-C
+    // 这种写法可能会造成循环引用
+    self.refrshView = [JPRefreshTitleView showRefreshViewInViewController:self
+                                                     observableScrollView:self.tableView
+                                                                    title:nil
+                                                                     font:nil
+                                                                textColor:nil
+                                                          refreshingBlock:^{
+                                                              [self.tableView reloadData];
+                                                          }];
+```
