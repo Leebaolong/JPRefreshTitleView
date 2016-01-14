@@ -26,7 +26,7 @@
     [self.refrshView stopRefresh];
 ```
 
-**change the color **
+**change the color**
  
 ```Object-C
     self.refrshView.activityIndicatorColor = [UIColor purpleColor];
