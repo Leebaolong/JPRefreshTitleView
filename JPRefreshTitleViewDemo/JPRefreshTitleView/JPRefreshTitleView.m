@@ -128,6 +128,7 @@
     self.foregroundLayer.strokeEnd = 0;
     self.foregroundLayer.bounds = bounds;
     self.foregroundLayer.path = backPath.CGPath;
+    self.foregroundLayer.lineCap = @"round";
     
     [self.layer addSublayer:self.backgroundLayer];
     [self.layer addSublayer:self.foregroundLayer];
