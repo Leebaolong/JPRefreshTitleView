@@ -159,6 +159,8 @@
             }else if (newoffsetY < self.threshold){ // 临界点，开始刷新
                 [self startRefresh];
                 self.progress = 0;
+            }else{
+                self.progress = 0;
             }
         }
     }else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
