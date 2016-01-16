@@ -34,7 +34,6 @@
 @property (nonatomic, strong)UIScrollView * scrollView;
 
 
-
 @end
 
 @implementation JPRefreshTitleView
@@ -103,7 +102,7 @@
     
     self.backgroundLayer = [CAShapeLayer layer];
     self.backgroundLayer.anchorPoint = CGPointMake(0.5, 0.5);
-    self.backgroundLayer.strokeColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.5].CGColor;
+    self.backgroundLayer.strokeColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.3].CGColor;
     self.backgroundLayer.fillColor = [UIColor clearColor].CGColor;
     self.backgroundLayer.position  = self.activityIndicator.center;
     self.backgroundLayer.lineWidth = 1;
@@ -144,25 +143,31 @@
         if (self.marginTop != self.scrollView.contentInset.top) {
             self.marginTop = self.scrollView.contentInset.top;
         }
+        if (self.isRefreshing) return;
         
         CGFloat offsetY = [change[@"new"] CGPointValue].y;
-        if (self.isRefreshing == NO) {
+        
+        // 栗子：存在系统优化机制时scrollView.contentInset.top = 64，而scrollView.contenOffset.y= -64
+        // 相加之和--newoffsetY便是我们要算的实际偏移，最开始等于0（向下拖时，newoffsetY < 0）
+        CGFloat newoffsetY = offsetY + self.marginTop;
+        
+        // -80<newoffsetY<0 即拖动距离大于0，小于80,重写progress的setter方法触发进度条
+        if (newoffsetY > 0){
+            self.progress = 0;
             
-            // 栗子：存在系统优化机制时scrollView.contentInset.top = 64，而scrollView.contenOffset.y= -64
-            // 相加之和--newoffsetY便是我们要算的实际偏移，最开始等于0（向下拖时，newoffsetY < 0）
-            CGFloat newoffsetY = offsetY + self.marginTop;
+        }else if (newoffsetY >= self.threshold && newoffsetY <= 0) {
+            self.progress = newoffsetY/self.threshold;
             
-            // -80<newoffsetY<0 即拖动距离大于0，小于80,重写progress的setter方法触发进度条
-            if (newoffsetY >= self.threshold && newoffsetY <= 0) {
-                self.progress = newoffsetY/self.threshold;
-                
-            }else if (newoffsetY < self.threshold){ // 临界点，开始刷新
-                [self startRefresh];
-                self.progress = 0;
-            }else{
-                self.progress = 0;
+        }else if (newoffsetY < self.threshold && !self.scrollView.isDragging){ // 临界点，开始刷新
+            [self startRefresh];
+            self.progress = 0;
+        }else{
+            if (self.progress > 0 && self.progress < 1) {
+                self.progress = 1;  // KVO延迟，防止拖拽过快，进度不等于1
             }
         }
+        
+        
     }else [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
@@ -170,13 +175,29 @@
 
 // 进度条的逻辑处理
 - (void)setProgress:(CGFloat)progress{
+    if (_progress == progress) {
+        return;
+    }
     _progress = progress;
-    if (progress == 0 || progress == 1) {
+    if (progress == 0) {
+        [self hideCircleLayer];
+    } else if (progress == 1 && !self.scrollView.isDragging){
         [self hideCircleLayer];
     }else{
         [self displayCircleLayer];
     }
+    
+    [CATransaction begin];
+    [CATransaction setDisableActions:NO];
+    if (self.scrollView.isDragging) {
+        [CATransaction setAnimationDuration:0.15];
+        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+    }else{
+        [CATransaction setAnimationDuration:0.25];
+        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+    }
     self.foregroundLayer.strokeEnd = MIN(progress, 1);
+    [CATransaction commit];
 }
 
 - (void)setActivityIndicatorColor:(UIColor *)activityIndicatorColor{
@@ -199,13 +220,17 @@
 
 
 - (void)hideCircleLayer{
-    self.backgroundLayer.hidden = YES;
-    self.foregroundLayer.hidden = YES;
+    if (!self.backgroundLayer.hidden) {
+        self.backgroundLayer.hidden = YES;
+        self.foregroundLayer.hidden = YES;
+    }
 }
 
 - (void)displayCircleLayer{
-    self.backgroundLayer.hidden = NO;
-    self.foregroundLayer.hidden = NO;
+    if (self.backgroundLayer.hidden) {
+        self.backgroundLayer.hidden = NO;
+        self.foregroundLayer.hidden = NO;
+    }
 }
 
 - (void)startRefresh{
