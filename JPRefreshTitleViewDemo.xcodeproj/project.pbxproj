@@ -21,6 +21,7 @@
 		183F7AD91C472C68007E9D72 /* JPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F7AD61C472C68007E9D72 /* JPTableViewCell.m */; };
 		183F7ADC1C472C85007E9D72 /* JPTestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F7ADB1C472C85007E9D72 /* JPTestTableView.m */; };
 		183F7AFD1C472F08007E9D72 /* JPRefreshTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183F7AFC1C472F08007E9D72 /* JPRefreshTitleView.m */; };
+		1847E2E51C4C7470001301CF /* JPRefreshTitleViewGIFTwo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1847E2E41C4C7470001301CF /* JPRefreshTitleViewGIFTwo.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		183F7ADB1C472C85007E9D72 /* JPTestTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPTestTableView.m; sourceTree = "<group>"; };
 		183F7AFB1C472F08007E9D72 /* JPRefreshTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPRefreshTitleView.h; sourceTree = "<group>"; };
 		183F7AFC1C472F08007E9D72 /* JPRefreshTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPRefreshTitleView.m; sourceTree = "<group>"; };
+		1847E2E41C4C7470001301CF /* JPRefreshTitleViewGIFTwo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = JPRefreshTitleViewGIFTwo.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 		183F7A9B1C472C10007E9D72 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1847E2E41C4C7470001301CF /* JPRefreshTitleViewGIFTwo.gif */,
 				183F7A9C1C472C10007E9D72 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				183F7AAE1C472C10007E9D72 /* LaunchScreen.storyboard in Resources */,
+				1847E2E51C4C7470001301CF /* JPRefreshTitleViewGIFTwo.gif in Resources */,
 				183F7AAB1C472C10007E9D72 /* Assets.xcassets in Resources */,
 				183F7AD81C472C68007E9D72 /* JPBaseTableViewController.xib in Resources */,
 				183F7AA61C472C10007E9D72 /* Main.storyboard in Resources */,
@@ -544,6 +548,7 @@
 				183F7ACA1C472C10007E9D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		183F7ACB1C472C10007E9D72 /* Build configuration list for PBXNativeTarget "JPRefreshTitleViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -552,6 +557,7 @@
 				183F7ACD1C472C10007E9D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		183F7ACE1C472C10007E9D72 /* Build configuration list for PBXNativeTarget "JPRefreshTitleViewDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -560,6 +566,7 @@
 				183F7AD01C472C10007E9D72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -22,7 +22,7 @@
 @property (nonatomic, assign)CGFloat viewHeight;
 @property (nonatomic, assign)CGFloat progress;
 
-// 刷新的临界点,具体见KVO方法里的计算，重点理解这句话：向下拖动的滑动偏移【绝对值/距离】超过80就刷新
+// 刷新的临界点,具体见KVO方法里的计算，重点理解这句话：向下拖动的滑动偏移【绝对值/距离】超过77就刷新
 @property (nonatomic, assign)CGFloat threshold;
 
 //通过scrollView/tableView/collectionView的contentInset.top偏移量计算临界点的大小
@@ -51,7 +51,7 @@
     JPRefreshTitleView * contenView = [[JPRefreshTitleView alloc]init];
     if (refreshingBlock) contenView.refreshingBlock = refreshingBlock;
     if (scrollView) contenView.scrollView = scrollView;
-    contenView.threshold = -80;
+    contenView.threshold = -77; // 刷新临界点
     
     contenView.titleLabel = [[UILabel alloc]init];
     contenView.titleLabel.text = title;
@@ -151,7 +151,7 @@
         // 相加之和--newoffsetY便是我们要算的实际偏移，最开始等于0（向下拖时，newoffsetY < 0）
         CGFloat newoffsetY = offsetY + self.marginTop;
         
-        // -80<newoffsetY<0 即拖动距离大于0，小于80,重写progress的setter方法触发进度条
+        // -77<newoffsetY<0 即拖动距离大于0，小于77,重写progress的setter方法触发进度条
         if (newoffsetY > 0){
             self.progress = 0;
             
