@@ -87,7 +87,7 @@ typedef void (^JPrefreshingBlock)(void);
                                       refreshingBlock:(JPrefreshingBlock)refreshingBlock;
 
 
-
+- (void)resetNavigationItemTitle:(NSString *)title;
 - (void)stopRefresh;
 - (void)startRefresh;
 

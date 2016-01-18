@@ -200,6 +200,12 @@
     [CATransaction commit];
 }
 
+
+- (void)resetNavigationItemTitle:(NSString *)title{
+    self.titleLabel.text = title;
+}
+
+
 - (void)setActivityIndicatorColor:(UIColor *)activityIndicatorColor{
     _activityIndicatorColor = activityIndicatorColor;
     self.activityIndicator.color = activityIndicatorColor;
